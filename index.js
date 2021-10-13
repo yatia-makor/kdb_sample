@@ -9,7 +9,10 @@ const q_queries = {
     insertRow: '`sample insert (`BeitShemesh;`maya;`345876)',
     getAllCities: 'select city from flip sample',
     updateNewColumn: 'update eye:`blue`brown`green`purple from `sample',
-    updateCell: 'update eye:`red from `sample where eye=`blue'
+    updateCell: 'update eye:`red from `sample where eye=`blue',
+    deleteRow: 'delete from `sample where name=`atia',
+    deleteColumn: 'delete price from `sample'
+
 }
 
 nodeq.connect({host: "localhost", port: 5010}, function(err, con) {
@@ -54,6 +57,18 @@ nodeq.connect({host: "localhost", port: 5010}, function(err, con) {
 
     // update cell in sample
     con.k(q_queries.updateCell, function(err, res) {
+        if (err) throw err;
+        console.log("kdb says: ", res); 
+    });
+
+    // delete row in sample
+    con.k(q_queries.deleteRow, function(err, res) {
+        if (err) throw err;
+        console.log("kdb says: ", res); 
+    });
+
+    // delete column in sample
+    con.k(q_queries.deleteColumn, function(err, res) {
         if (err) throw err;
         console.log("kdb says: ", res); 
     });
