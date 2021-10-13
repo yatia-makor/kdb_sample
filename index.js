@@ -6,7 +6,9 @@ const q_queries = {
     test: '2+2',
     createSampleTable: 'sample:([]city:`Ashkelon`Ashdod`TelAviv;name:`yuval`atia`blabla;price:`1231245`3453452`2343)',
     getSampleTable: 'sample',
-    getAllCitiesFromSample: 'select city from flip sample'
+    insertRowToSample : '`sample insert (`BeitShemesh;`maya;`345876)',
+    getAllCitiesFromSample: 'select city from flip sample',
+    
 }
 
 nodeq.connect({host: "localhost", port: 5010}, function(err, con) {
@@ -31,9 +33,17 @@ nodeq.connect({host: "localhost", port: 5010}, function(err, con) {
         console.log("kdb says: ", res); 
     });
 
+    // insert row into sample
+    con.k(q_queries.insertRowToSample, function(err, res) {
+        if (err) throw err;
+        console.log("index of row inserted to sample: ", res); 
+    });
+
     // get only cities from sample
     con.k(q_queries.getAllCitiesFromSample, function(err, res) {
         if (err) throw err;
         console.log("kdb says: ", res); 
     });
+
+
 });
